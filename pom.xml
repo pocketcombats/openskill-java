@@ -23,6 +23,11 @@
         </license>
     </licenses>
 
+    <issueManagement>
+        <url>https://github.com/pocketcombats/openskill-java/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
     <developers>
         <developer>
             <name>takanoro</name>
@@ -139,6 +144,17 @@
                             <tagNameFormat>@{project.version}</tagNameFormat>
                             <useReleaseProfile>true</useReleaseProfile>
                             <releaseProfiles>release</releaseProfiles>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <tokenEnabled>true</tokenEnabled>
                         </configuration>
                     </plugin>
                 </plugins>
