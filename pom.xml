@@ -40,9 +40,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/pocketcombats/openskill-java.git</connection>
-        <developerConnection>scm:git:ssh://github.com:pocketcombats/openskill-java.git</developerConnection>
-        <url>https://github.com/pocketcombats/openskill-java/tree/master</url>
+        <url>https://github.com/pocketcombats/openskill-java</url>
+        <connection>scm:git:https://github.com/pocketcombats/openskill-java.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/pocketcombats/openskill-java.git</developerConnection>
     </scm>
 
     <properties>
