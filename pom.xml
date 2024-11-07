@@ -45,6 +45,14 @@
         <developerConnection>scm:git:ssh://git@github.com/pocketcombats/openskill-java.git</developerConnection>
     </scm>
 
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>16</java.version>
@@ -141,9 +149,11 @@
                         <artifactId>maven-release-plugin</artifactId>
                         <version>3.1.1</version>
                         <configuration>
+                            <arguments>--strict-checksums</arguments>
                             <tagNameFormat>@{project.version}</tagNameFormat>
                             <useReleaseProfile>true</useReleaseProfile>
                             <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -153,8 +163,9 @@
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
                             <autoPublish>true</autoPublish>
-                            <tokenEnabled>true</tokenEnabled>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
