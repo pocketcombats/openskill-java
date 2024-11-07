@@ -4,7 +4,7 @@
 
     <groupId>com.pocketcombats</groupId>
     <artifactId>openskill</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <name>openskill-java</name>
     <description>
@@ -41,7 +41,7 @@
         <url>https://github.com/pocketcombats/openskill-java</url>
         <connection>scm:git:https://github.com/pocketcombats/openskill-java.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/pocketcombats/openskill-java.git</developerConnection>
-      <tag>1.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
