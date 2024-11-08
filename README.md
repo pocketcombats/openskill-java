@@ -1,6 +1,8 @@
 # OpenSkill Java
 
-An object-oriented Java implementation of the [Weng-Lin ranking system](https://www.csie.ntu.edu.tw/~cjlin/papers/online_ranking/online_journal.pdf), providing accurate skill-based ranking for multiplayer games. This library supports multiple ranking models and team-based competitions.
+An object-oriented Java implementation of the [Weng-Lin ranking system](https://www.csie.ntu.edu.tw/~cjlin/papers/online_ranking/online_journal.pdf), providing
+accurate skill-based ranking for multiplayer games. This library supports multiple ranking models and team-based
+competitions.
 
 ## Requirements
 
@@ -9,29 +11,30 @@ An object-oriented Java implementation of the [Weng-Lin ranking system](https://
 ## Features
 
 - **Multiple Rating Models**
-  - Thurstone-Mosteller: A TrueSkill™-like model ideal for head-to-head competitions
-  - Bradley-Terry: Optimized for relative skill comparisons
-  - Plackett-Luce: Specialized for multi-participant competitions with ordered finishes
+    - Thurstone-Mosteller: A TrueSkill™-like model ideal for head-to-head competitions
+    - Bradley-Terry: Optimized for relative skill comparisons
+    - Plackett-Luce: Specialized for multi-participant competitions with ordered finishes
 
 - **Comprehensive Match Support**
-  - Individual and team-based competitions
-  - Multi-team games (3+ teams)
-  - Draw/tie handling
-  - Player weights (contribution factors)
-  - Match quality assessment
+    - Individual and team-based competitions
+    - Multi-team games (3+ teams)
+    - Draw/tie handling
+    - Player weights (contribution factors)
+    - Match quality assessment
 
 - **Implementation Highlights**
-  - Thread-safe
-  - Flexible configuration
-  - Customizable team rating aggregation
-  - Customizable skill uncertainty handling
-  - Zero dependencies
+    - Thread-safe
+    - Flexible configuration
+    - Customizable team rating aggregation
+    - Customizable skill uncertainty handling
+    - Zero dependencies
 
 ## Installation
 
 Add this dependency to your `pom.xml`:
 
 ```xml
+
 <dependency>
     <groupId>com.pocketcombats</groupId>
     <artifactId>openskill</artifactId>
@@ -48,23 +51,23 @@ Here's a simple example of rating a 1v1 match:
 RatingModelConfig config = RatingModelConfig.builder().build();
 
 // Create players with default ratings (mu=25, sigma=25/3)
-SimplePlayerResult<String> player1 = new SimplePlayerResult<>("player1", 25.0, 25/3.0);
-SimplePlayerResult<String> player2 = new SimplePlayerResult<>("player2", 25.0, 25/3.0);
+SimplePlayerResult<String> player1 = new SimplePlayerResult<>("player1", 25.0, 25 / 3.0);
+SimplePlayerResult<String> player2 = new SimplePlayerResult<>("player2", 25.0, 25 / 3.0);
 
 // Create teams (1 player per team)
 SimpleTeamResult<String> team1 = new SimpleTeamResult<>(
-    player1.mu(), player1.sigma(), 1, // mu, sigma, rank (1 = winner)
-    List.of(player1)
+        player1.mu(), player1.sigma(), 1, // mu, sigma, rank (1 = winner)
+        List.of(player1)
 );
 SimpleTeamResult<String> team2 = new SimpleTeamResult<>(
-    player2.mu(), player2.sigma(), 2, // mu, sigma, rank (2 = loser)
-    List.of(player2)
+        player2.mu(), player2.sigma(), 2, // mu, sigma, rank (2 = loser)
+        List.of(player2)
 );
 
 // Calculate new ratings using Thurstone-Mosteller model
 Adjudicator<String> adjudicator = new Adjudicator<>(
-    config,
-    new ThurstoneMostellerFull(config)
+        config,
+        new ThurstoneMostellerFull(config)
 );
 
 List<RatingAdjustment<String>> adjustments = adjudicator.rate(List.of(team1, team2));
@@ -76,20 +79,20 @@ The `RatingModelConfig` class provides extensive customization options:
 
 ```java
 RatingModelConfig config = RatingModelConfig.builder()
-    // Core Parameters
-    .setBeta(25.0 / 6.0)      // The scaling factor for uncertainty in skills (sigma) 
-    .setKappa(0.0001)         // Update dampening factor
-    .setTau(25.0 / 300.0)     // Dynamic uncertainty adjustment
-        
-    // Behavioral Controls   
-    .setLimitSigma(false)     // Prevent uncertainty growth if true
-    .setBalance(true)         // Enable balanced team rating aggregation
-        
-    // Balance tuning
-    .setZ(3.0)                // Z-score for balance calculation
-    .setAlpha(1.0)            // Balance sensitivity
-    .setTarget(0.0)           // Target mean difference
-    .build();
+        // Core Parameters
+        .setBeta(25.0 / 6.0)      // The scaling factor for uncertainty in skills (sigma) 
+        .setKappa(0.0001)         // Update dampening factor
+        .setTau(25.0 / 300.0)     // Dynamic uncertainty adjustment
+
+        // Behavioral Controls   
+        .setLimitSigma(false)     // Prevent uncertainty growth if true
+        .setBalance(true)         // Enable balanced team rating aggregation
+
+        // Balance tuning
+        .setZ(3.0)                // Z-score for balance calculation
+        .setAlpha(1.0)            // Balance sensitivity
+        .setTarget(0.0)           // Target mean difference
+        .build();
 ```
 
 ## Advanced Usage
@@ -131,10 +134,10 @@ List<RatingAdjustment<String>> adjustments = adjudicator.rate(List.of(teamA, tea
 
 ```java
 SimplePlayerResult<String> player1 = new SimplePlayerResult<>(
-    "mvp", 25.0, 8.3, 69.0, 1.5  // Higher weight (1.5) for higher impact
+        "mvp", 25.0, 8.3, 69.0, 1.5  // Higher weight (1.5) for higher impact
 );
 SimplePlayerResult<String> player2 = new SimplePlayerResult<>(
-    "sub", 25.0, 8.3, 69.0, 0.7  // Lower weight (0.7) for lower impact
+        "sub", 25.0, 8.3, 69.0, 0.7  // Lower weight (0.7) for lower impact
 );
 ```
 
@@ -146,7 +149,6 @@ double matchQuality = evaluator.evaluateQuality(teamA, teamB);
 
 // matchQuality ranges from 0 (unbalanced) to 1 (perfectly balanced)
 ```
-
 
 ### Different Team Rating Aggregation
 
@@ -165,19 +167,27 @@ MatchMakingRating teamRating = weightedAggregator.computeTeamRating(playerRating
 Choose your rating model based on your game's characteristics:
 
 - **Thurstone-Mosteller (ThurstoneMostellerFull)**
-  - Best for: Traditional competitive games
-  - Features: Similar to TrueSkill™
-  - Use when: Head-to-head competition is primary
+    - Best for: Traditional competitive games
+    - Features: Similar to TrueSkill™
+    - Use when: Head-to-head competition is primary
 
 - **Bradley-Terry (BradleyTerryFull)**
-  - Best for: Games with clear skill differentials
-  - Features: Emphasizes relative skill differences
-  - Use when: Pairwise comparison accuracy is crucial
+    - Best for: Games with clear skill differentials
+    - Features: Emphasizes relative skill differences
+    - Use when: Pairwise comparison accuracy is crucial
 
 - **Plackett-Luce (PlackettLuce)**
-  - Best for: Games with ordered finishes
-  - Features: Handles multiple participants naturally
-  - Use when: Finish order matters (e.g., racing games, free-for-all games)
+    - Best for: Games with ordered finishes
+    - Features: Handles multiple participants naturally
+    - Use when: Finish order matters (e.g., racing games, free-for-all games)
+
+## Implementations in other Languages
+
+- [Python](https://github.com/vivekjoshy/openskill.py)
+- [Javascript](https://github.com/philihp/openskill.js)
+- [Kotlin](https://github.com/brezinajn/openskill.kt)
+- [Elixir](https://github.com/philihp/openskill.ex)
+- [Lua](https://github.com/bstummer/openskill.lua)
 
 ## Contributing
 
@@ -186,4 +196,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 Licensed under the Apache License, Version 2.0. See [LICENSE.txt](LICENSE.txt) for details.
-
