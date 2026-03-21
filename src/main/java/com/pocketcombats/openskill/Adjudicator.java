@@ -27,7 +27,7 @@ public class Adjudicator<T> {
         this.limitSigma = config.limitSigma();
     }
 
-    public List<RatingAdjustment<T>> rate(TeamResult<T> teamResult, List<TeamResult<T>> opponents) {
+    public List<RatingAdjustment<T>> rate(TeamResult<T> teamResult, List<? extends TeamResult<T>> opponents) {
         AdjustmentFactors adjustmentFactors =
                 ratingModel.calculateAdjustmentFactors(teamResult, opponents);
         return teamResult.players().stream()
@@ -37,7 +37,7 @@ public class Adjudicator<T> {
                 .toList();
     }
 
-    public List<RatingAdjustment<T>> rate(List<TeamResult<T>> teamResults) {
+    public List<RatingAdjustment<T>> rate(List<? extends TeamResult<T>> teamResults) {
         return teamResults.stream()
                 .flatMap(teamResult -> {
                     List<TeamResult<T>> opponents = teamResults.stream()
