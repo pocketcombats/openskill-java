@@ -40,7 +40,7 @@ public class Adjudicator<T> {
     public List<RatingAdjustment<T>> rate(List<? extends TeamResult<T>> teamResults) {
         return teamResults.stream()
                 .flatMap(teamResult -> {
-                    List<TeamResult<T>> opponents = teamResults.stream()
+                    List<? extends TeamResult<T>> opponents = teamResults.stream()
                             .filter(r -> !r.equals(teamResult))
                             .toList();
                     AdjustmentFactors adjustmentFactors =
