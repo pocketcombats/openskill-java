@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pocketcombats</groupId>
@@ -41,8 +42,8 @@
         <url>https://github.com/pocketcombats/openskill-java</url>
         <connection>scm:git:https://github.com/pocketcombats/openskill-java.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/pocketcombats/openskill-java.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -58,9 +59,9 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
 
-        <junit-jupiter.version>5.11.0</junit-jupiter.version>
-        <assertj.version>3.26.3</assertj.version>
-        <jackson.version>2.17.2</jackson.version>
+        <junit-jupiter.version>6.0.3</junit-jupiter.version>
+        <assertj.version>3.27.7</assertj.version>
+        <jackson.version>2.21.2</jackson.version>
     </properties>
 
     <dependencies>
@@ -88,7 +89,23 @@
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.5.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <ruleSet>
+                        <ignoreVersions>
+                            <ignoreVersion>
+                                <type>regex</type>
+                                <version>.+[-\.]([Aa]lpha.+|[Bb]eta.+|M.+|RC.*|CR.+)</version>
+                            </ignoreVersion>
+                        </ignoreVersions>
+                    </ruleSet>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -101,7 +118,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
+                        <version>3.4.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -114,7 +131,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.11.1</version>
+                        <version>3.12.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -127,7 +144,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.7</version>
+                        <version>3.2.8</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -146,7 +163,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.3.1</version>
                         <configuration>
                             <arguments>--strict-checksums</arguments>
                             <tagNameFormat>@{project.version}</tagNameFormat>
